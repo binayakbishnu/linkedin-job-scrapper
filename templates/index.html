@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Job list</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', get_timestamp=get_timestamp) }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+<body>
+    <h1>
+        <img src="{{ url_for('static', filename='favicon-32x32.png') }}" alt="" />
+        &nbsp;Job list for "{{ data.search_query }}" shortlisted from LinkedIn
+    </h1>
+    <!-- <ul>
+        {% for item in data %}
+        <li>
+            {{ item.position }}&nbsp;(<a target="_blank" href="{{ item.link }}">Apply here</a>)
+            <ul>
+                <li>
+                    {{ item.post_date }}
+                </li>
+                <li>
+                    {{ item.location }}
+                </li>
+                <li>
+                    <a target="_blank" href="{{item.company_url}}">{{ item.company_name }}</a>
+                </li>
+                {% if item.benefits != None %}
+                <li>
+                    {{ item.benefits }}
+                </li>
+                {% endif %}
+            </ul>
+        </li>
+        <br />
+        {% endfor %}
+    </ul> -->
+
+    <div class="gridParent">
+        {% for item in data.content %}
+
+        <div class="gridChild">
+            <h2 class="position">
+                {{ item.position }}
+            </h2>
+            <a target="_blank" href="{{ item.link }}">Apply here</a>
+            <p class="date">
+                {{ item.post_date }}
+            </p>
+            <p class="location">
+                {{ item.location }}
+            </p>
+            <p class="company_name">
+                <a target="_blank" href="{{item.company_url}}">{{ item.company_name }}</a>
+            </p>
+            {% if item.benefits != None %}
+            <p class="benefits">
+                {{ item.benefits }}!
+            </p>
+            {% endif %}
+
+            <button type="button" onclick="gridChildClicked('{{ item.link }}')" class="applyButton">
+                Apply
+            </button>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
